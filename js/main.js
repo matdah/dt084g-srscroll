@@ -20,7 +20,11 @@ window.addEventListener("scroll", () => {
 
 // Ladda uppdateringar - antal sidor som parameter
 function loadUpdates(page = 1) {
+    // Url till API:et med sidnummer och antal per sida
     const url = `https://api.sr.se/api/v2/traffic/messages?format=json&page=${page}&size=${size}`;
+
+    // Visa laddningsindikator
+    document.getElementById("loading").style.display = "block";
 
     fetch(url)
         .then(response => response.json())
@@ -30,6 +34,10 @@ function loadUpdates(page = 1) {
         })
         .catch(error => {
             console.error("Error fetching data:", error);
+        })
+        .finally(() => {
+            // Dölja laddningsindikator
+            document.getElementById("loading").style.display = "none";
         });
 }
 
