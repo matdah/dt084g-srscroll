@@ -10,6 +10,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Händelsehanterare som lyssnar när besökaren kommer till botten av sidan
 window.addEventListener("scroll", () => {
+    // Infinite scroll: Kontrollera om användaren nått botten av sidan
+    // (synlig höjd + scroll-position >= total sidhöjd)
     if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
         currentPage++;
         loadUpdates(currentPage);
