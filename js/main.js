@@ -16,13 +16,14 @@ window.addEventListener("scroll", () => {
     }
 });
 
+// Ladda uppdateringar - antal sidor som parameter
 function loadUpdates(page = 1) {
     const url = `https://api.sr.se/api/v2/traffic/messages?format=json&page=${page}&size=${size}`;
 
     fetch(url)
         .then(response => response.json())
         .then(data => {
-            console.log(data);
+            //console.log(data);
             displayUpdates(data.messages);
         })
         .catch(error => {
@@ -30,13 +31,14 @@ function loadUpdates(page = 1) {
         });
 }
 
+// Uppdatera DOM med nya meddelanden
 function displayUpdates(messages) {
     const container = document.getElementById("updates");
     messages.forEach(message => {
         const outputEl = document.createElement("article");
         outputEl.classList.add("update");
         outputEl.innerHTML = `
-            <h3>${message.title}</h3>
+            <h3>${message.title} (${message.subcategory})</h3>
             <p>${message.description}</p>
         `;
         container.appendChild(outputEl);
