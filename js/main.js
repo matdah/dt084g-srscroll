@@ -1,0 +1,44 @@
+"use strict";
+
+let currentPage = 1;
+const size = 10;
+
+// Invänta tills DOM är fullständigt laddad
+document.addEventListener("DOMContentLoaded", () => {
+    loadUpdates(1);
+});
+
+// Händelsehanterare som lyssnar när besökaren kommer till botten av sidan
+window.addEventListener("scroll", () => {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+        currentPage++;
+        loadUpdates(currentPage);
+    }
+});
+
+function loadUpdates(page = 1) {
+    const url = `https://api.sr.se/api/v2/traffic/messages?format=json&page=${page}&size=${size}`;
+
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            displayUpdates(data.messages);
+        })
+        .catch(error => {
+            console.error("Error fetching data:", error);
+        });
+}
+
+function displayUpdates(messages) {
+    const container = document.getElementById("updates");
+    messages.forEach(message => {
+        const outputEl = document.createElement("article");
+        outputEl.classList.add("update");
+        outputEl.innerHTML = `
+            <h3>${message.title}</h3>
+            <p>${message.description}</p>
+        `;
+        container.appendChild(outputEl);
+    });
+}

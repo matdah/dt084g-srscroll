@@ -1,0 +1,14 @@
+body {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.2em;
+    line-height: 1.6;
+    background-color: #ccc;
+}
+
+main {
+    max-width: 960px;
+    padding: 1em;
+    background-color: white;
+    margin: 0 auto;
+    border-radius: 4px;
+}
